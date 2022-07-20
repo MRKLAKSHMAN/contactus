@@ -21,7 +21,7 @@ public class ContactUsForm {
     @Column(name = "subject")
     private String subject;
 
-    @Column(name = "message")
+    @Column(name = "message", columnDefinition="TEXT")
     private String message;
 
     @Temporal(TemporalType.TIMESTAMP)
