@@ -1,6 +1,6 @@
 package com.app.contactus.controller;
 
-import com.app.contactus.model.ContactForm;
+import com.app.contactus.model.ContactUsForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class FormController {
 
-    @GetMapping
+    @GetMapping("/contactus")
     public String showContactUsForm(Model model) {
-        ContactForm contactForm = new ContactForm();
+        ContactUsForm contactUsForm = new ContactUsForm();
 
-        model.addAttribute("contactForm", contactForm);
+        model.addAttribute("contactUsForm", contactUsForm);
 
         return "contact-us";
     }

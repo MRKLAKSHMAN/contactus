@@ -5,14 +5,14 @@
     <title>Contact Us</title>
 </head>
 <body>
-  <a class="login" href="#" th:href="@{/login}">Login</a>
   <section>
     <div class="formContainer">
-      <form class="message" action="#" th:action="@{/savemessage}" th:object="${contactForm}" method="POST">
+      <form class="message" action="#" th:action="@{/savemessage}" th:object="${contactUsForm}" method="POST">
         <h2>Contact Us</h2>
-        <input required type="text" placeholder="Full Name"/><br>
-        <input required type="email" placeholder="Email"/>
-        <input required type="password" placeholder="Type your message..."/><br>
+        <input required type="text" th:field="*{name}" placeholder="Full Name"/><br>
+        <input required type="email" th:field="*{email}" placeholder="Email"/><br>
+        <input required type="text" th:field="*{subject}" placeholder="Subject"/><br>
+        <input required type="text" th:field="*{message}" placeholder="Type your message in detail..."/><br>
         <button type="submit">Send</button>
       </form>
     </div>
