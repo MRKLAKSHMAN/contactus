@@ -1,6 +1,8 @@
 package com.app.contactus.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -12,12 +14,17 @@ public class ContactUsForm {
     @Column(name = "id")
     private Integer id;
 
+    @Size(max = 255, message = "Full Name should have maximum of 255 characters")
     @Column(name = "name")
     private String name;
 
+    @Size(max = 255, message = "Email should have maximum of 255 characters")
+    @Pattern(regexp="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-zA-Z0-9.-]+$",
+            message = "please add proper extension to email")
     @Column(name = "email")
     private String email;
 
+    @Size(max = 255, message = "Subject should have maximum of 255 characters")
     @Column(name = "subject")
     private String subject;
 

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacted Details</title>
+</head>
+<body>
+    <h3>Success</h3>
+    <div class="formDetails">
+        <b>Contacted on :</b>
+        <p th:text="${#dates.format(savedContactUsForm.contactedAt, 'dd-MMM-yyyy hh:mm a')}"/>
+        <b>Contacted by :</b> <p th:text="${savedContactUsForm.name+'('+savedContactUsForm.email+')'}"></p>
+        <b>Subject :</b> <p th:text="${savedContactUsForm.subject}"></p>
+        <b>Message :</b> <p th:text="${savedContactUsForm.message}"></p>
+    </div>
+</body>
+</html>
