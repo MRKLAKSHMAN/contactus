@@ -19,8 +19,6 @@ public class ContactUsForm {
     private String name;
 
     @Size(max = 255, message = "Email should have maximum of 255 characters")
-    @Pattern(regexp="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-zA-Z0-9.-]+$",
-            message = "please add proper extension to email")
     @Column(name = "email")
     private String email;
 

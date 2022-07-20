@@ -45,7 +45,7 @@
         <h2>Contact Us</h2>
         <input required type="text" th:field="*{name}" placeholder="Full Name"/>
         <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"/><br>
-        <input required type="email" th:field="*{email}" placeholder="Email"/><br>
+        <input required type="email" th:field="*{email}" placeholder="Email"/>
         <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"/><br>
         <input required type="text" th:field="*{subject}" placeholder="Subject"/>
         <p th:if="${#fields.hasErrors('subject')}" th:errorclass="error" th:errors="*{subject}"/><br>

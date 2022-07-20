@@ -5,13 +5,13 @@
     <title>Contacted Details</title>
 </head>
 <body>
-    <h3>Success</h3>
+    <h3 style="color:green;">Success</h3>
     <div class="formDetails">
         <b>Contacted on :</b>
-        <p th:text="${#dates.format(savedContactUsForm.contactedAt, 'dd-MMM-yyyy hh:mm a')}"/>
-        <b>Contacted by :</b> <p th:text="${savedContactUsForm.name+'('+savedContactUsForm.email+')'}"></p>
-        <b>Subject :</b> <p th:text="${savedContactUsForm.subject}"></p>
-        <b>Message :</b> <p th:text="${savedContactUsForm.message}"></p>
+        <i th:text="${#dates.format(savedContactUsForm.contactedAt, 'dd-MMM-yyyy hh:mm a')}"/><br>
+        <b>Contacted by :</b> <i th:text="${savedContactUsForm.name+'('+savedContactUsForm.email+')'}"></i><br>
+        <b>Subject :</b> <i th:text="${savedContactUsForm.subject}"></i><br>
+        <b>Message :</b> <i th:text="${savedContactUsForm.message}"></i><br>
     </div>
 </body>
 </html>
