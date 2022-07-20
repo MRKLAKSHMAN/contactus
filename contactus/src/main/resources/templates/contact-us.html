@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us</title>
+</head>
+<body>
+  <a class="login" href="#" th:href="@{/login}">Login</a>
+  <section>
+    <div class="formContainer">
+      <form class="message" action="#" th:action="@{/savemessage}" th:object="${contactForm}" method="POST">
+        <h2>Contact Us</h2>
+        <input required type="text" placeholder="Full Name"/><br>
+        <input required type="email" placeholder="Email"/>
+        <input required type="password" placeholder="Type your message..."/><br>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+</body>
+</html>
