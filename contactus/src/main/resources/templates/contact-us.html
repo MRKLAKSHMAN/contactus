@@ -40,6 +40,9 @@
 </head>
 <body>
   <section>
+      <form th:action="@{/logout}" method="post" style="width:100px;align-self:right;">
+          <input type="submit" value="logout">
+      </form>
     <div class="formContainer">
       <form class="message" action="#" th:action="@{/savemessage}" th:object="${contactUsForm}" method="POST">
         <h2>Contact Us</h2>

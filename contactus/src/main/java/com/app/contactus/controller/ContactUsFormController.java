@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class ContactUsFormController {
@@ -19,9 +20,8 @@ public class ContactUsFormController {
     private ContactUsFormService contactUsFormService;
 
     @GetMapping("/contactus")
-    public String showContactUsForm(Model model) {
+    public String showContactUsForm(Model model, Principal principal) {
         ContactUsForm contactUsForm = new ContactUsForm();
-
         model.addAttribute("contactUsForm", contactUsForm);
 
         return "contact-us";
