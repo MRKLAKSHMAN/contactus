@@ -26,10 +26,6 @@ public class LoginController {
     @PostMapping("/loginprocessing")
     public String loginProcessing(@RequestParam("username") String username,
                                   @RequestParam("password") String password, Model model) {
-
-        System.err.println(username);
-        System.err.println(password);
-
         String usernameValidation = personRepositoryImplementation.retrieveByUsername(username);
         String passwordValidation = personRepositoryImplementation.retrieveByPassword(username, password);
 

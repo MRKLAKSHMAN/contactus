@@ -5,11 +5,15 @@ import com.app.contactus.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.support.LdapNameBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.naming.Name;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
+import javax.naming.directory.BasicAttribute;
+import javax.naming.directory.BasicAttributes;
 import javax.naming.directory.SearchControls;
 import java.util.List;
 
@@ -33,8 +37,28 @@ public class PersonRepositoryImplementation implements PersonRepository {
     }
 
     @Override
-    public String create(Person p) {
-        return null;
+    public String create(Person person) {
+        Name dn = buildDn(person.getUserId());
+        ldapTemplate.bind(dn, null, buildAttributes(person));
+        System.out.println(person.getUserId() + " created successfully");
+        return "Success creation of "+person.getUserId();
+    }
+
+    private Attributes buildAttributes(Person p) {
+        BasicAttribute basicAttribute = new BasicAttribute("objectclass");
+        basicAttribute.add("top");
+        basicAttribute.add("person");
+        Attributes attrs = new BasicAttributes();
+        attrs.put(basicAttribute);
+        attrs.put("uid", p.getUserId());
+        attrs.put("cn", p.getFullName());
+        attrs.put("sn", p.getLastName());
+        attrs.put("userPassword", p.getPassword());
+        return attrs;
+    }
+
+    public Name buildDn(String userId) {
+        return LdapNameBuilder.newInstance(BASE_DN).add("ou", "people").add("uid", userId).build();
     }
 
     @Override

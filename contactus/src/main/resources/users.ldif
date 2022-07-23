@@ -33,3 +33,10 @@ cn: Lakshman Kumar
 sn: Kumar
 uid: lakshman
 userPassword: $2a$12$tLuHkDpUiYOmKhbfF7BiaOoymcbtsdGTe8eae8zMBjGjuhxusW7k.
+
+dn: cn=managers,ou=groups,dc=lakshmancontactus,dc=com
+objectclass: top
+objectclass: groupOfUniqueNames
+cn: managers
+ou: manager
+uniqueMember: uid=lakshman,ou=people,dc=lakshmancontactus,dc=com

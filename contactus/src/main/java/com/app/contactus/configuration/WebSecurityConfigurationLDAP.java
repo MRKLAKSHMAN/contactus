@@ -36,3 +36,44 @@ public class WebSecurityConfigurationLDAP extends WebSecurityConfigurerAdapter {
                 .passwordAttribute("userPassword");
     }
 }
+
+//@Configuration
+//@EnableWebSecurity
+//public class WebSecurityConfigurationLDAP {
+//
+//    @Bean
+//    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().loginPage("/login").permitAll()
+//                .usernameParameter("username").passwordParameter("password")
+//                .defaultSuccessUrl("/contactus")
+//                .failureForwardUrl("/loginprocessing")
+//                .and().logout().permitAll().logoutSuccessUrl("/login?logout=logoutSuccess");
+//
+//        return http.build();
+//    }
+//
+//    @Bean
+//    public EmbeddedLdapServerContextSourceFactoryBean contextSourceFactoryBean() {
+//        EmbeddedLdapServerContextSourceFactoryBean contextSourceFactoryBean =
+//                EmbeddedLdapServerContextSourceFactoryBean.fromEmbeddedLdapServer();
+//        contextSourceFactoryBean.setLdif("classpath*:resources/users.ldif");
+//        contextSourceFactoryBean.setRoot("dc=lakshmancontactus,dc=com");
+//        contextSourceFactoryBean.setPort(8389);
+//        return contextSourceFactoryBean;
+//    }
+//
+//    @Bean
+//    AuthenticationManager authenticationManager(BaseLdapPathContextSource contextSource) {
+//        LdapPasswordComparisonAuthenticationManagerFactory factory = new LdapPasswordComparisonAuthenticationManagerFactory(
+//                contextSource, new BCryptPasswordEncoder());
+//
+//        factory.setUserDnPatterns("uid={0},ou=people");
+//        factory.setPasswordEncoder(new BCryptPasswordEncoder());
+//        factory.setPasswordAttribute("userPassword");
+//        return factory.createAuthenticationManager();
+//    }
+//}
