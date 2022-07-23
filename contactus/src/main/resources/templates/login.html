@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        .formContainer {
+        position : absolute;
+        left : 60vh;
+       }
+
+      form{
+        display : flex;
+        flex-direction : column;
+        justify-content : center;
+        margin : 40px;
+        background : #eee;
+        padding : 7px;
+        width : 500px;
+      }
+
+      button{
+        width : 90px;
+        height : 35px;
+        background : #FFE7AD;
+        border-radius : 3px;
+        font-weight : bold;
+      }
+
+      button:hover {
+        background-color : #53CD00;
+        transition : 0.3s;
+      }
+
+      .error {
+        color : red;
+        font-family : Helvetica;
+      }
+    </style>
+</head>
+<body>
+<div class="formContainer">
+<form action="#" th:action="@{/login}" class="formLogin" method="post">
+        <h3>Login</h3>
+        <div th:if='${error.equals("")}' class="error"></div>
+        <div th:unless='${error.equals("")}' class="error" th:text="${error}"></div>
+        <div th:if='${logout.equals("logoutSuccess")}' class="logout" style="color:green">
+            You have been logged out.
+        </div>
+        <input type="text" required id="username" name="username" placeholder="Username"/><br>
+        <input type="password" required id="password" name="password" placeholder="Password"/><br>
+        <button type="submit" class="submit">Log in</button>
+</form>
+</div>
+</body>
+</html>

@@ -15,7 +15,11 @@ public class WebSecurityConfigurationLDAP extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin();
+                .formLogin().permitAll().loginPage("/login")
+                .usernameParameter("username").passwordParameter("password")
+                .defaultSuccessUrl("/contactus")
+                .failureForwardUrl("/loginprocessing")
+                .and().logout().permitAll().logoutSuccessUrl("/login?logout=logoutSuccess");
     }
 
     @Override
