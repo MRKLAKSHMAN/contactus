@@ -26,13 +26,14 @@ public class LoginController {
     @PostMapping("/loginprocessing")
     public String loginProcessing(@RequestParam("username") String username,
                                   @RequestParam("password") String password, Model model) {
-        String usernameValidation = personRepositoryImplementation.retrieveByUsername(username);
         String passwordValidation = personRepositoryImplementation.retrieveByPassword(username, password);
 
-        if(usernameValidation.equals("User not exist"))
+        if(passwordValidation.equals("User not exist"))
             model.addAttribute("error", "User not exist");
-        if(usernameValidation.equals("User exist") && passwordValidation.equals("User not exist"))
+        else {
             model.addAttribute("error", "Wrong Password");
+            model.addAttribute("username", username);
+        }
 
         model.addAttribute("logout", "invalid");
 

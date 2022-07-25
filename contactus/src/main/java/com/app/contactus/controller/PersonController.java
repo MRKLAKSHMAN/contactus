@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
-
 @Controller
 public class PersonController {
 
@@ -28,7 +26,7 @@ public class PersonController {
 
     @PostMapping("/saveuser")
     public String saveUser(@ModelAttribute Person person, BindingResult bindingResult, Model model) {
-        String userExistence = personRepositoryImplementation.retrieveByUsername(person.getUserId());
+        String userExistence = personRepositoryImplementation.userExistence(person.getUserId());
 
         if (userExistence.equals("User exist")) {
             model.addAttribute("userNameExist", "Username already exists. " +

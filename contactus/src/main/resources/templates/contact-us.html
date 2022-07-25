@@ -46,11 +46,11 @@
     <div class="formContainer">
       <form class="message" action="#" th:action="@{/savemessage}" th:object="${contactUsForm}" method="POST">
         <h2>Contact Us</h2>
-        <input required type="text" th:field="*{name}" placeholder="Full Name"/>
+        <input required type="text" maxlength="250" th:field="*{name}" placeholder="Full Name"/>
         <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"/><br>
-        <input required type="email" th:field="*{email}" placeholder="Email"/>
+        <input required type="email" maxlength="250" th:field="*{email}" placeholder="Email"/>
         <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"/><br>
-        <input required type="text" th:field="*{subject}" placeholder="Subject"/>
+        <input required type="text" maxlength="250" th:field="*{subject}" placeholder="Subject"/>
         <p th:if="${#fields.hasErrors('subject')}" th:errorclass="error" th:errors="*{subject}"/><br>
         <textarea required type="text" th:field="*{message}" placeholder="Type your message in detail..."/><br>
         <button type="submit">Send</button>

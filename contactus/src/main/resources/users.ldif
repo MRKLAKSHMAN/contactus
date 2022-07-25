@@ -40,3 +40,33 @@ objectclass: groupOfUniqueNames
 cn: managers
 ou: manager
 uniqueMember: uid=lakshman,ou=people,dc=lakshmancontactus,dc=com
+
+dn: uid=lakshmankala,ou=people,dc=lakshmancontactus,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Kalasamudram Lakshman Kumar
+sn: Kumar
+uid: lakshmankala
+userPassword: $2a$10$hpm.HGkm8Cxl0P82slDVHecgA/XAMuEmiYTbh5sLsRZRrHq7H7kda
+
+dn: uid=raju,ou=people,dc=lakshmancontactus,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Chitrapu Raju
+sn: Raju
+uid: raju
+userPassword: $2a$10$jWQgKaZvdN0NdQdffotOa.eb374IUPXjwodrvzuIryZf.JuayKBcC
+
+dn: uid=gaurav jha,ou=people,dc=lakshmancontactus,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Gaurav Jha
+sn: Jha
+uid: gaurav jha
+userPassword: $2a$10$2ZRI/un85Qm6Jt1n2kSBLekH4qqCt4z6ZbGoid1UBO3RQXO2gikLC

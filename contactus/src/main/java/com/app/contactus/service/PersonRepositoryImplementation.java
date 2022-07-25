@@ -15,6 +15,7 @@ import javax.naming.directory.Attributes;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
 import javax.naming.directory.SearchControls;
+import java.io.*;
 import java.util.List;
 
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
@@ -41,7 +42,31 @@ public class PersonRepositoryImplementation implements PersonRepository {
         Name dn = buildDn(person.getUserId());
         ldapTemplate.bind(dn, null, buildAttributes(person));
         System.out.println(person.getUserId() + " created successfully");
+
+        try {
+            saveUserInLdiFile(person);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return "Success creation of "+person.getUserId();
+    }
+
+    private void saveUserInLdiFile(Person person) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/users.ldif",true));
+
+        writer.newLine();
+        writer.write("\ndn: " + buildDn(person.getUserId()).toString() + "\n");
+        writer.write("objectclass: top\n");
+        writer.write("objectclass: person\n");
+        writer.write("objectclass: organizationalPerson\n");
+        writer.write("objectclass: inetOrgPerson\n");
+        writer.write("cn: " + person.getFullName() + "\n");
+        writer.write("sn: " + person.getLastName() + "\n");
+        writer.write("uid: " + person.getUserId() + "\n");
+        writer.write("userPassword: " + new BCryptPasswordEncoder().encode(person.getPassword()));
+        writer.close();
+        System.err.println("Wrote user in ldif file successfully");
     }
 
     private Attributes buildAttributes(Person person) {
@@ -51,13 +76,13 @@ public class PersonRepositoryImplementation implements PersonRepository {
         basicAttribute.add("organizationalPerson");
         basicAttribute.add("inetOrgPerson");
 
-        Attributes attrs = new BasicAttributes();
-        attrs.put(basicAttribute);
-        attrs.put("uid", person.getUserId());
-        attrs.put("cn", person.getFullName());
-        attrs.put("sn", person.getLastName());
-        attrs.put("userPassword", new BCryptPasswordEncoder().encode(person.getPassword()));
-        return attrs;
+        Attributes attributes = new BasicAttributes();
+        attributes.put(basicAttribute);
+        attributes.put("uid", person.getUserId());
+        attributes.put("cn", person.getFullName());
+        attributes.put("sn", person.getLastName());
+        attributes.put("userPassword", new BCryptPasswordEncoder().encode(person.getPassword()));
+        return attributes;
     }
 
     public Name buildDn(String userId) {
@@ -74,28 +99,22 @@ public class PersonRepositoryImplementation implements PersonRepository {
         return null;
     }
 
-    public String retrieveByUsername(String username) {
+    public String retrieveByPassword(String username, String password) {
         List<Person> people = retrieve();
 
         for(Person person : people) {
             if(person.getUserId().equals(username))
-                return "User exist";
+                return "Wrong Password";
         }
 
         return "User not exist";
     }
 
-    public String retrieveByPassword(String username, String password) {
-        String userValidation = retrieveByUsername(username);
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encodedPassword = encoder.encode(password);
-        List<Person> people = retrieve();
-
-        for(Person person : people) {
-            if(person.getUserId().equals(username) && encodedPassword.equals(person.getPassword()))
-                return "User exist";
-        }
-
+    public String userExistence(String userId) {
+        try {
+            Person person = (Person) ldapTemplate.lookup(buildDn(userId), new PersonAttributeMapper());
+            return "User exist";
+        } catch (Exception exception){ }
         return "User not exist";
     }
 
@@ -104,8 +123,14 @@ public class PersonRepositoryImplementation implements PersonRepository {
         public Person mapFromAttributes(Attributes attributes) throws NamingException {
             Person person = new Person();
             person.setUserId(null != attributes.get("uid") ? attributes.get("uid").get().toString() : null);
-            person.setFullName(null != attributes.get("cn") ? attributes.get("cn").get().toString() : null);
+
+//            person.setFullName(null != attributes.get("cn") ? attributes.get("cn").get().toString() : null);
             person.setLastName(null != attributes.get("sn") ? attributes.get("sn").get().toString() : null);
+
+            String var = attributes.get("cn").toString();
+            System.out.println("var " + var);
+            var = null;
+            person.setFullName(var != null? attributes.get("cn").get().toString() : null);
             person.setPassword(
                     null != attributes.get("userPassword") ? attributes.get("userPassword").get().toString() : null);
 

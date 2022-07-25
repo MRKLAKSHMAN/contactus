@@ -44,12 +44,12 @@
         Create account</a>
 <form action="#" th:action="@{/login}" class="formLogin" method="post">
         <h3>Login</h3>
-        <div th:if='${error.equals("")}' class="error"></div>
-        <div th:unless='${error.equals("")}' class="error" th:text="${error}"></div>
+        <div th:if='${error.equals("User not exist")}' class="error" th:text="${error}"></div>
         <div th:if='${logout.equals("logoutSuccess")}' class="logout" style="color:green">
             You have been logged out.
         </div>
-        <input type="text" required id="username" name="username" placeholder="Username"/><br>
+        <input type="text" required id="username" name="username" th:value="${username}" placeholder="Username"/><br>
+        <div th:if='${error.equals("Wrong Password")}' class="error" th:text="${error}"></div>
         <input type="password" required id="password" name="password" placeholder="Password"/><br>
         <button type="submit" class="submit">Log in</button>
 </form>
