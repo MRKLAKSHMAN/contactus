@@ -44,16 +44,19 @@ public class PersonRepositoryImplementation implements PersonRepository {
         return "Success creation of "+person.getUserId();
     }
 
-    private Attributes buildAttributes(Person p) {
+    private Attributes buildAttributes(Person person) {
         BasicAttribute basicAttribute = new BasicAttribute("objectclass");
         basicAttribute.add("top");
         basicAttribute.add("person");
+        basicAttribute.add("organizationalPerson");
+        basicAttribute.add("inetOrgPerson");
+
         Attributes attrs = new BasicAttributes();
         attrs.put(basicAttribute);
-        attrs.put("uid", p.getUserId());
-        attrs.put("cn", p.getFullName());
-        attrs.put("sn", p.getLastName());
-        attrs.put("userPassword", p.getPassword());
+        attrs.put("uid", person.getUserId());
+        attrs.put("cn", person.getFullName());
+        attrs.put("sn", person.getLastName());
+        attrs.put("userPassword", new BCryptPasswordEncoder().encode(person.getPassword()));
         return attrs;
     }
 

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+    <style>
+        .formContainer {
+    position : absolute;
+    left : 60vh;
+}
+
+form{
+     display : flex;
+     flex-direction : column;
+     justify-content : center;
+     margin : 40px;
+     background : #eee;
+     padding : 7px;
+     width : 500px;
+}
+
+button{
+    width : 90px;
+    height : 35px;
+    background : #FFE7AD;
+    border-radius : 3px;
+    font-weight : bold;
+}
+button:hover {
+      background-color : #53CD00;
+      transition : 0.3s;
+  }
+
+.error {
+    color : red;
+    font-family : Helvetica;
+}
+
+.login{
+    width : 30px;
+    height : 10px;
+    padding : 5px;
+    margin : 10px;
+    background : #FAE9A1;
+    border-radius : 3px;
+}
+
+a[class="login"]:hover {
+      background-color : #53CD00;
+      color : white;
+      transition : 0.3s;
+}
+    </style>
+</head>
+<body>
+<section>
+    <div class="formContainer">
+        <h2>Welcome Friend</h2>
+        <p>Select your username on your own.</p>
+        <form class="userCreation" action="#" th:action="@{/saveuser}" th:object="${person}" method="POST">
+            <h2>Create Account</h2>
+            <p th:if="${userNameExist != null}" th:text="${userNameExist}" style="color:red;"></p>
+            <input required type="text" th:field="*{userId}" placeholder="Create your username"/><br>
+            <input required type="text" th:field="*{fullName}" placeholder="Full Name"/><br>
+            <input required type="text" th:field="*{lastName}" placeholder="Last Name"/><br>
+            <input required type="password" th:field="*{password}" placeholder="Create password"/><br>
+            <button type="submit">Submit</button>
+            <p th:if="${userCreated != null}" th:text="${userCreated}" style="color:green;"></p>
+        </form>
+        <a th:if="${userCreated != null}" class="login" href="#" th:href="@{/login}"
+           style="border : 2px solid black;padding : 3px;margin : 3px;">Login</a>
+    </div>
+</section>
+</body>
+</html>

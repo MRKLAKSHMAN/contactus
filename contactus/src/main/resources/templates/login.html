@@ -40,6 +40,8 @@
 </head>
 <body>
 <div class="formContainer">
+    <a class="createAccount" href="#" th:href="@{/usercreation}" Style="color : blue;">
+        Create account</a>
 <form action="#" th:action="@{/login}" class="formLogin" method="post">
         <h3>Login</h3>
         <div th:if='${error.equals("")}' class="error"></div>
